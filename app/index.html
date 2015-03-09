@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <script>
+      var timeout;
+      function setTimer () {
+        var minutes = document.getElementById('interval').value;
+        var millis  = minutes * 60 * 1000;
+
+        if (timeout) {
+          clearInterval(timeout);
+        }
+
+        timeout = setInterval(function () {
+          window.alert('stretch!');
+        }, millis)
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="content">
+      Alert me every <input id="interval" type="number" onchange="setTimer()"> minutes
+    </div>
+  </body>
+</html>
