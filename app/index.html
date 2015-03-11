@@ -1,25 +1,31 @@
 <html>
   <head>
-    <script>
-      var timeout;
-      function setTimer () {
-        var minutes = document.getElementById('interval').value;
-        var millis  = minutes * 60 * 1000;
-
-        if (timeout) {
-          clearInterval(timeout);
-        }
-
-        timeout = setInterval(function () {
-          window.alert('stretch!');
-        }, millis)
-      }
-    </script>
+    <script src="workhorse.js"></script>
   </head>
 
   <body>
     <div id="content">
-      Alert me every <input id="interval" type="number" onchange="setTimer()"> minutes
+      <div>
+        Alert me every <input id="interval" type="number" onchange="setTimer()"> minutes
+      </div>
+      <div>
+        Current Interval: <span id="current">work</span>
+      </div>
+      <div>
+        Time left: <span id="timeleft"></span>
+      </div>
     </div>
+
+    <script>
+      var workhorse = new Workhorse();
+      var timeleft = document.getElementById('timeleft');
+
+      function setTimeLeft () {
+        timeleft.innerHTML = workhorse.getTimeLeft();
+      }
+
+      workhorse.addListener('tick', setTimeLeft);
+      workhorse.start();
+    </script>
   </body>
 </html>
