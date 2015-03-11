@@ -1,0 +1,23 @@
+{
+  "name": "workhorse",
+  "version": "1.0.0",
+  "description": "Healthy living for desk-monkeys.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/connorbode/workhorse.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/connorbode/workhorse/issues"
+  },
+  "homepage": "https://github.com/connorbode/workhorse",
+  "devDependencies": {
+    "chai": "^2.1.1",
+    "mocha": "^2.2.1"
+  }
+}
