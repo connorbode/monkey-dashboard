@@ -23,10 +23,23 @@ var Workhorse = function () {
   };
 };
 
+
+// 
+// getPhase
+// --------
+//
+// Retrieves the name of the current phase
+//
 Workhorse.prototype.getPhase = function () {
   return this.phase;
 };
 
+//
+// start
+// -----
+//
+// Starts the timer from the current phase
+//
 Workhorse.prototype.start = function () {
   var i;
   this.timer = this.phases[this.phase].length;
@@ -45,14 +58,34 @@ Workhorse.prototype.start = function () {
   }.bind(this), 1000);
 };
 
+// 
+// endPhase
+// --------
+//
+// Stops the current phase from ticking
+//
 Workhorse.prototype.endPhase = function () {
   clearInterval(this.interval);
 };
 
+//
+// getTimeLeft
+// -----------
+//
+// Returns the time left for the current phase
+//
 Workhorse.prototype.getTimeLeft = function () {
   return this.timer;
 };
 
+//
+// addListener
+// -----------
+//
+// Adds a hook for an event.  Current events include:
+//
+// - `tick`: Fired at every clock tick
+//
 Workhorse.prototype.addListener = function (event, callback) {
   this.listeners[event].push(callback);
 };

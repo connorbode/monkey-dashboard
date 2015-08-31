@@ -14,9 +14,11 @@
       <div>
         Time left: <span id="timeleft"></span>
       </div>
+      <button id="show-button">SHOW</button>
     </div>
 
     <script>
+
       var workhorse = new Workhorse();
       var timeleft = document.getElementById('timeleft');
 
@@ -26,6 +28,16 @@
 
       workhorse.addListener('tick', setTimeLeft);
       workhorse.start();
+    </script>
+    <script>
+        Notification.requestPermission(function (status) {
+          // This allows to use Notification.permission with Chrome/Safari
+          if (Notification.permission !== status) {
+            Notification.permission = status;
+          }
+
+          new Notification('Hi!!!');
+        });
     </script>
   </body>
 </html>
