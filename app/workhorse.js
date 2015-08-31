@@ -1,17 +1,19 @@
 var Workhorse = function () {
 
   // the phases that the timer can go through
-  this.phases = {
-    work: {
+  this.phases = [
+    {
+      name: 'work',
       length: 1800
     },
-    rest: {
+    {
+      name: 'rest',
       length: 150
     }
-  };
+  ];
 
   // what phase we are currently in
-  this.phase = 'work';
+  this.index = 0;
 
   // how much time is left in the phase
   this.timer = 0;
@@ -35,37 +37,78 @@ Workhorse.prototype.getPhase = function () {
 };
 
 //
+// setPhase
+// --------
+//
+// Sets the timer to the start of the phase
+// by the index provided.  Sets 
+//
+Workhorse.prototype.setPhase = function (index) {
+  var phase;
+
+  if (index > this.phases.length)
+    throw "Phase index out of bounds";
+
+  phase = this.phases[index];
+  this.index = index;
+  this.timer = phase.length;
+};
+
+//
+// incrementPhase
+// --------------
+//
+// Runs the next phase of the timer
+//
+Workhorse.prototype.incrementPhase = function () {
+  var nextIndex;
+
+  if (this.index === this.phases.length - 1)
+    nextIndex = 0;
+  else
+    nextIndex = this.index + 1;
+
+  this.setPhase(nextIndex);
+};
+
+//
 // start
 // -----
 //
-// Starts the timer from the current phase
+// Starts the timer
 //
 Workhorse.prototype.start = function () {
   var i;
-  this.timer = this.phases[this.phase].length;
   this.interval = setInterval(function () {
     if (this.timer === 0) {
-      this.endPhase();
-      for (i = 0; i < this.listeners.end.length; i += 1) {
-        this.listeners.end[i]();
-      }
+      this.onPhaseEnd();
+      triggerListeners('end');
     } else {
       this.timer -= 1;
-      for (i = 0; i < this.listeners.tick.length; i += 1) {
-        this.listeners.tick[i]();
-      }
+      triggerListeners('tick');
     }
   }.bind(this), 1000);
 };
 
-// 
-// endPhase
-// --------
 //
-// Stops the current phase from ticking
+// stop
+// ----
 //
-Workhorse.prototype.endPhase = function () {
+// Stops the timer
+//
+Workhorse.prototype.stop = function () {
   clearInterval(this.interval);
+};
+
+// 
+// onPhaseEnd
+// ----------
+//
+// This function runs when the current phase comes to an end
+//
+Workhorse.prototype.onPhaseEnd = function () {
+  this.incrementPhase();
+  this.start();
 };
 
 //
@@ -88,4 +131,18 @@ Workhorse.prototype.getTimeLeft = function () {
 //
 Workhorse.prototype.addListener = function (event, callback) {
   this.listeners[event].push(callback);
+};
+
+//
+// triggerListeners
+// ----------------
+//
+// Runs all event listeners for a given event.
+//
+Workhorse.prototype.triggerListeners = function (event) {
+  var i;
+  var eventListeners = this.listeners[event];
+  for (i = 0; i < eventListeners.length; i += 1) {
+    eventListeners[i]();
+  }
 };
