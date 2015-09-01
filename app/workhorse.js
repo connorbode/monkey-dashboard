@@ -1,16 +1,8 @@
 var Workhorse = function () {
 
   // the phases that the timer can go through
-  this.phases = [
-    {
-      name: 'work',
-      length: 1800
-    },
-    {
-      name: 'rest',
-      length: 150
-    }
-  ];
+  // should be loaded using loadPhaseSet
+  this.phases = null;
 
   // what phase we are currently in
   this.index = 0;
@@ -25,6 +17,16 @@ var Workhorse = function () {
   };
 };
 
+//
+// loadPhaseSet
+// ------------
+//
+// Loads in the phases for the timer.  This is
+// required in order to use the timer.
+//
+Workhorse.prototype.loadPhaseSet = function (phaseSet) {
+  this.phases = phaseSet;
+};
 
 // 
 // getPhase
@@ -146,3 +148,5 @@ Workhorse.prototype.triggerListeners = function (event) {
     eventListeners[i]();
   }
 };
+
+module.exports = Workhorse;
