@@ -79,7 +79,6 @@ var Workhorse = function () {
   //
   var onPhaseEnd = function () {
     this.incrementPhase();
-    this.start();
   };  
 
   //
