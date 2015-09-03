@@ -4,7 +4,7 @@
   "description": "Healthy living for desk-monkeys.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha spec"
+    "test": "mocha --compilers js:mocha-babel spec"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/connorbode/workhorse",
   "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-runtime": "^5.8.20",
     "chai": "^2.1.1",
-    "mocha": "^2.2.1"
+    "mocha": "^2.2.1",
+    "mocha-babel": "^3.0.0"
   }
 }
