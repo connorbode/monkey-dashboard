@@ -1,3 +1,5 @@
+var ee = require('events').EventEmitter;
+
 //
 // PhaseSet
 // ========
@@ -7,7 +9,11 @@
 // and run.  
 //
 var PhaseSet = function () {
-  var phases = [];
+  this.phases = [];
+
+  var EVENTS = {
+    CHANGED: 'changed'
+  };
 
   //
   // findPhaseById
@@ -18,29 +24,33 @@ var PhaseSet = function () {
   var findPhase = (phase) => {
     var id = phase.id;
     var index = -1;
-    phases.forEach((p, i) => {
+    this.phases.forEach((p, i) => {
       if (p.id === id)
         index = i;
     });
     return index;
   };
 
-  phases.add = (phase) => {
-    if (findPhase(phase) === -1)
-      phases.push(phase);
+  this.add = (phase) => {
+    if (findPhase(phase) === -1) {
+      this.phases.push(phase);
+      this.emit(EVENTS.CHANGED);
+    }
   };
 
-  phases.remove = (phase) => {
+  this.remove = (phase) => {
     var index = findPhase(phase);
     if (index > -1) {
-      phases.splice(index, 1);
+      this.phases.splice(index, 1);
+      this.emit(EVENTS.CHANGED);
       return true;
     }
     else {
       return false;
     }
   };
-  return phases;
 };
+
+PhaseSet.prototype = Object.create(ee.prototype);
 
 module.exports = PhaseSet;

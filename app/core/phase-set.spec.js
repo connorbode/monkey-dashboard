@@ -28,22 +28,37 @@ describe('PhaseSet', () => {
   it('adds a phase', () => {
     set.add(phase);
     set.add(phase2);
-    expect(set.length).to.equal(2);
-    expect(set[0].name).to.equal(phase_props.name);
-    expect(set[1].name).to.equal(phase_2_props.name);
+    expect(set.phases.length).to.equal(2);
+    expect(set.phases[0].name).to.equal(phase_props.name);
+    expect(set.phases[1].name).to.equal(phase_2_props.name);
   });
 
   it('wont add a phase twice', () => {
     set.add(phase);
     set.add(phase);
-    expect(set.length).to.equal(1);
+    expect(set.phases.length).to.equal(1);
   });
 
   it('removes a phase', () => {
-    set.push(phase);
-    set.push(phase2);
+    set.phases.push(phase);
+    set.phases.push(phase2);
     set.remove(phase);
-    expect(set.length).to.equal(1);
-    expect(set[0].name).to.equal(phase_2_props.name);
+    expect(set.phases.length).to.equal(1);
+    expect(set.phases[0].name).to.equal(phase_2_props.name);
+  });
+
+  it('emits the changed event when a phase is added', (done) => {
+    set.on('changed', () => {
+      done();
+    });
+    set.add(phase);
+  });
+
+  it('emits the changed event when a phase is removed', (done) => {
+    set.on('changed', () => {
+      done();
+    });
+    set.phases.push(phase);
+    set.remove(phase);
   });
 });
