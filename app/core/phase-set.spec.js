@@ -29,8 +29,14 @@ describe('PhaseSet', () => {
     set.add(phase);
     set.add(phase2);
     expect(set.length).to.equal(2);
-    expect(set[0]).to.deep.equal(phase_props);
-    expect(set[1]).to.deep.equal(phase_2_props);
+    expect(set[0].name).to.equal(phase_props.name);
+    expect(set[1].name).to.equal(phase_2_props.name);
+  });
+
+  it('wont add a phase twice', () => {
+    set.add(phase);
+    set.add(phase);
+    expect(set.length).to.equal(1);
   });
 
   it('removes a phase', () => {
@@ -38,6 +44,6 @@ describe('PhaseSet', () => {
     set.push(phase2);
     set.remove(phase);
     expect(set.length).to.equal(1);
-    expect(set[0]).to.deep.equal(phase_2_props);
+    expect(set[0].name).to.equal(phase_2_props.name);
   });
 });

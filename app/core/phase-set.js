@@ -8,11 +8,30 @@
 //
 var PhaseSet = function () {
   var phases = [];
-  phases.add = (phase) => {
-    phases.push(phase);
+
+  //
+  // findPhaseById
+  // -------------
+  //
+  // indexOf, but based on id.
+  //
+  var findPhase = (phase) => {
+    var id = phase.id;
+    var index = -1;
+    phases.forEach((p, i) => {
+      if (p.id === id)
+        index = i;
+    });
+    return index;
   };
+
+  phases.add = (phase) => {
+    if (findPhase(phase) === -1)
+      phases.push(phase);
+  };
+
   phases.remove = (phase) => {
-    var index = phases.indexOf(phase);
+    var index = findPhase(phase);
     if (index > -1) {
       phases.splice(index, 1);
       return true;
