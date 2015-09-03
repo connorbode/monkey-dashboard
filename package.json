@@ -4,7 +4,7 @@
   "description": "Healthy living for desk-monkeys.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:mocha-babel spec"
+    "test": "mocha --compilers js:mocha-babel app/**/*.spec.js"
   },
   "repository": {
     "type": "git",
