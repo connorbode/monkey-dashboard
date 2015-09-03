@@ -8,10 +8,10 @@
 //
 var PhaseSet = function () {
   var phases = [];
-  phases.addPhase = (phase) => {
+  phases.add = (phase) => {
     phases.push(phase);
   };
-  phases.removePhase = (phase) => {
+  phases.remove = (phase) => {
     var index = phases.indexOf(phase);
     if (index > -1) {
       phases.splice(index, 1);
