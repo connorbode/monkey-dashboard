@@ -13,7 +13,7 @@ describe('PhaseSet', () => {
 
   beforeEach(() => {
     phase_props = {
-      name: 'test', 
+      name: 'test',
       duration: 1000
     };
     phase_2_props = {
@@ -48,14 +48,16 @@ describe('PhaseSet', () => {
   });
 
   it('emits the changed event when a phase is added', (done) => {
-    set.on('changed', () => {
+    set.on(set.EVENTS.ADDED, (p) => {
+      expect(p.id).to.equal(phase.id);
       done();
     });
     set.add(phase);
   });
 
   it('emits the changed event when a phase is removed', (done) => {
-    set.on('changed', () => {
+    set.on(set.EVENTS.REMOVED, (p) => {
+      expect(p.id).to.equal(phase.id);
       done();
     });
     set.phases.push(phase);

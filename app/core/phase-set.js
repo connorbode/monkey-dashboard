@@ -6,22 +6,23 @@ var ee = require('events').EventEmitter;
 //
 // A PhaseSet consists of multiple phases.
 // PhaseSets can be loaded by the Workhorse
-// and run.  
+// and run.
 //
 var PhaseSet = function () {
   this.phases = [];
 
-  var EVENTS = {
-    CHANGED: 'changed'
+  this.EVENTS = {
+    REMOVED: 'removed',
+    ADDED: 'added'
   };
 
   //
-  // findPhaseById
-  // -------------
+  // indexOf
+  // -------
   //
   // indexOf, but based on id.
   //
-  var findPhase = (phase) => {
+  this.indexOf = (phase) => {
     var id = phase.id;
     var index = -1;
     this.phases.forEach((p, i) => {
@@ -32,17 +33,17 @@ var PhaseSet = function () {
   };
 
   this.add = (phase) => {
-    if (findPhase(phase) === -1) {
+    if (this.indexOf(phase) === -1) {
       this.phases.push(phase);
-      this.emit(EVENTS.CHANGED);
+      this.emit(this.EVENTS.ADDED, phase);
     }
   };
 
   this.remove = (phase) => {
-    var index = findPhase(phase);
+    var index = this.indexOf(phase);
     if (index > -1) {
       this.phases.splice(index, 1);
-      this.emit(EVENTS.CHANGED);
+      this.emit(this.EVENTS.REMOVED, phase);
       return true;
     }
     else {
