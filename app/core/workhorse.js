@@ -1,8 +1,10 @@
+var EventEmitter = require('events').EventEmitter;
+
 var Workhorse = function () {
 
   // the phases that the timer can go through
   // should be loaded using loadPhaseSet
-  var phases = null;
+  var sequence;
 
   // what phase we are currently in
   var index = 0;
@@ -11,31 +13,33 @@ var Workhorse = function () {
   var timer = 0;
   var interval;
 
-  // listeners which will trigger whenever the clock ticks
-  var listeners = {
-    'tick': [],
-    'end': []
+  this.EVENTS = {
+    END: 'end',
+    TICK: 'tick'
   };
 
+  var TICK_INTERVAL = 1000;
+
   //
-  // loadPhaseSet
+  // loadSequence
   // ------------
   //
-  // Loads in the phases for the timer.  This is
-  // required in order to use the timer.
+  // Loads in the phases for the timer.
   //
-  this.loadPhaseSet = function (phaseSet) {
-    phases = phaseSet;
+  this.loadSequence = function (phaseSequence) {
+    sequence = phaseSequence;
   };
 
-  // 
+  //
   // getPhase
   // --------
   //
   // Retrieves the name of the current phase
   //
   this.getPhase = function () {
-    return phases[index];
+    if (!sequence)
+      throw "sequence must be loaded first!";
+    return sequence.phases[index];
   };
 
   //
@@ -43,15 +47,14 @@ var Workhorse = function () {
   // --------
   //
   // Sets the timer to the start of the phase
-  // by the index provided.  Sets 
+  // by the index provided.  Sets
   //
   this.setPhase = function (i) {
-    if (i > phases.length)
+    if (i > sequence.phases.length)
       throw "Phase index out of bounds";
 
-    phase = phases[i];
     index = i;
-    timer = phase.length;
+    timer = sequence.phases[i].duration;
   };
 
   //
@@ -63,7 +66,7 @@ var Workhorse = function () {
   this.incrementPhase = function () {
     var nextIndex;
 
-    if (index === phases.length - 1)
+    if (index === sequence.phases.length - 1)
       nextIndex = 0;
     else
       nextIndex = index + 1;
@@ -71,7 +74,7 @@ var Workhorse = function () {
     this.setPhase(nextIndex);
   };
 
-  // 
+  //
   // onPhaseEnd
   // ----------
   //
@@ -79,19 +82,21 @@ var Workhorse = function () {
   //
   var onPhaseEnd = function () {
     this.incrementPhase();
-  };  
+  };
 
   //
-  // triggerListeners
-  // ----------------
+  // onPhaseTick
+  // -----------
   //
-  // Runs all event listeners for a given event.
+  // Handles every tick of the timer
   //
-  var triggerListeners = function (event) {
-    var i;
-    var eventListeners = this.listeners[event];
-    for (i = 0; i < eventListeners.length; i += 1) {
-      eventListeners[i]();
+  var onPhaseTick = function () {
+    if (timer === 0) {
+      onPhaseEnd.apply(this);
+      this.emit(this.EVENTS.END);
+    } else {
+      timer -= 1;
+      this.emit(this.EVENTS.TICK);
     }
   };
 
@@ -102,16 +107,7 @@ var Workhorse = function () {
   // Starts the timer
   //
   this.start = function () {
-    var i;
-    interval = setInterval(function () {
-      if (timer === 0) {
-        onPhaseEnd();
-        triggerListeners('end');
-      } else {
-        timer -= 1;
-        triggerListeners('tick');
-      }
-    }.bind(this), 1000);
+    interval = setInterval(onPhaseTick.bind(this), TICK_INTERVAL);
   };
 
   //
@@ -131,30 +127,9 @@ var Workhorse = function () {
   // Returns the time left for the current phase
   //
   this.getTimeLeft = function () {
-    return this.timer;
-  };
-
-  //
-  // addListener
-  // -----------
-  //
-  // Adds a hook for an event.  Current events include:
-  //
-  // - `tick`: Fired at every clock tick
-  //
-  this.addListener = function (event, callback) {
-    this.listeners[event].push(callback);
+    return timer;
   };
 };
 
-
-
-
-
-
-
-
-
-
-
+Workhorse.prototype = Object.create(EventEmitter.prototype);
 module.exports = Workhorse;
