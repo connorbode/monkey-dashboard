@@ -78,9 +78,11 @@ describe('PhaseSequence', () => {
 
   it('removes any instances of a phase from the sequence when the sequence is removed from the set', () => {
     set.add(phase1);
+    set.add(phase2);
     var sequence = new PhaseSequence(set);
-    sequence.phases.push(phase1, phase1, phase1, phase1);
+    sequence.phases.push(phase1, phase1, phase1, phase1, phase2);
     set.emit(set.EVENTS.REMOVED, phase1);
-    expect(sequence.phases).to.be.empty;
+    expect(sequence.phases.length).to.equal(1);
+    expect(sequence.phases[0].name).to.equal('phase2');
   });
 });
