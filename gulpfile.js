@@ -44,3 +44,9 @@ gulp.task('sass', function () {
     .pipe(minifyCss())
     .pipe(gulp.dest('./dist/'));
 });
+
+gulp.task('watch-sass', function () {
+  return gulp.watch('app/**/*.scss', ['sass']);
+});
+
+gulp.task('default', ['sass', 'watch-sass', 'watchify']);
