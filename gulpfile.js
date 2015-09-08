@@ -24,12 +24,12 @@ gulp.task('watchify', function () {
   var watcher = watchify(bundler);
 
   return watcher
-    .on('error', function (err) {
-      gutil.log(err.message);
-    })
     .on('update', function () {
       gutil.log('Starting app bundle compilation');
       watcher.bundle()
+        .on('error', function (err) {
+          gutil.log(err);
+        })
         .pipe(source('./index.jsx'))
         .pipe(rename('app.js'))
         .pipe(gulp.dest('./dist/static/'));
