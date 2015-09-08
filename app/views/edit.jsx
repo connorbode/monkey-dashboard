@@ -13,7 +13,7 @@ var editor = React.createClass({
 
   },
 
-  render: function () {
+  render: () => {
     return (
       <div>Hello world</div>
     );
