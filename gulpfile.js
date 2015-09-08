@@ -9,16 +9,18 @@ var gutil      = require('gulp-util');
 var sass       = require('gulp-sass');
 var concat     = require('gulp-concat');
 var minifyCss  = require('gulp-minify-css');
+var del        = require('del');
+var rename     = require('gulp-rename');
 
 gulp.task('watchify', function () {
   var bundler = browserify({
     debug:        true,
     transform:    [ reactify, babelify ],
-    entries:      [ './app/index.js' ],
+    entries:      [ './app/index.jsx' ],
     cache:        {},
     packageCache: {}
   });
-  bundler.plugin('minifyify', { map: 'app.js.map', output: __dirname + '/dist/app.js.map' });
+  bundler.plugin('minifyify', { map: 'app.js.map', output: __dirname + '/dist/static/app.js.map' });
   var watcher = watchify(bundler);
 
   return watcher
@@ -28,13 +30,15 @@ gulp.task('watchify', function () {
     .on('update', function () {
       gutil.log('Starting app bundle compilation');
       watcher.bundle()
-        .pipe(source('./index.js'))
-        .pipe(gulp.dest('./dist/'));
+        .pipe(source('./index.jsx'))
+        .pipe(rename('app.js'))
+        .pipe(gulp.dest('./dist/static/'));
       gutil.log('Finished app bundle compilation');
     })
     .bundle()
-    .pipe(source('./index.js'))
-    .pipe(gulp.dest('./dist/'));
+    .pipe(source('./index.jsx'))
+    .pipe(rename('app.js'))
+    .pipe(gulp.dest('./dist/static/'));
 });
 
 gulp.task('sass', function () {
@@ -42,11 +46,25 @@ gulp.task('sass', function () {
     .pipe(concat('main.css'))
     .pipe(sass({ style: 'compressed' }).on('error', sass.logError))
     .pipe(minifyCss())
-    .pipe(gulp.dest('./dist/'));
+    .pipe(gulp.dest('./dist/static'));
 });
 
 gulp.task('watch-sass', function () {
   return gulp.watch('app/**/*.scss', ['sass']);
 });
 
-gulp.task('default', ['sass', 'watch-sass', 'watchify']);
+gulp.task('clean', function (done) {
+  del.sync('./dist/');
+  done();
+});
+
+gulp.task('html', function () {
+  return gulp.src('app/index.html')
+    .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('watch-html', function () {
+  return gulp.watch('app/index.html', ['html']);
+});
+
+gulp.task('default', ['clean', 'sass', 'watch-sass', 'html', 'watch-html', 'watchify']);

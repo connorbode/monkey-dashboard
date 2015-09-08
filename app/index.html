@@ -1,43 +1,10 @@
 <html>
   <head>
-    <script src="workhorse.js"></script>
   </head>
 
   <body>
-    <div id="content">
-      <div>
-        Alert me every <input id="interval" type="number" onchange="setTimer()"> minutes
-      </div>
-      <div>
-        Current Interval: <span id="current">work</span>
-      </div>
-      <div>
-        Time left: <span id="timeleft"></span>
-      </div>
-      <button id="show-button">SHOW</button>
+    <div id="container">
     </div>
-
-    <script>
-
-      var workhorse = new Workhorse();
-      var timeleft = document.getElementById('timeleft');
-
-      function setTimeLeft () {
-        timeleft.innerHTML = workhorse.getTimeLeft();
-      }
-
-      workhorse.addListener('tick', setTimeLeft);
-      workhorse.start();
-    </script>
-    <script>
-        Notification.requestPermission(function (status) {
-          // This allows to use Notification.permission with Chrome/Safari
-          if (Notification.permission !== status) {
-            Notification.permission = status;
-          }
-
-          new Notification('Hi!!!');
-        });
-    </script>
+    <script src="static/app.js"></script>
   </body>
 </html>
