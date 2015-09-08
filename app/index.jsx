@@ -1,6 +1,7 @@
 var page      = require('page');
 var React     = require('react/addons');
-var editor    = require('./views/editor.jsx');
+var edit      = require('./views/edit.jsx');
+var run       = require('./views/run.jsx');
 var container = document.getElementById('container');
 
 var render = (component) => {
@@ -8,8 +9,12 @@ var render = (component) => {
   React.render(element, container);
 };
 
-page('/', (context, next) => {
-  render(editor);
+page('/timers/:id', (context, next) => {
+  render(run);
+});
+
+page('/edit', (context, next) => {
+  render(edit);
 });
 
 page();
