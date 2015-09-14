@@ -46,8 +46,7 @@
     "node-uuid": "^1.4.3",
     "page": "^1.6.3",
     "react": "^0.13.3",
-    "react-redux": "^2.1.1",
-    "redux": "^2.0.0",
-    "require-dir": "^0.3.0"
+    "require-dir": "^0.3.0",
+    "simflux": "0.0.7"
   }
 }
