@@ -42,6 +42,7 @@
     "watchify": "^3.4.0"
   },
   "dependencies": {
+    "cookies-js": "^1.2.2",
     "node-uuid": "^1.4.3",
     "page": "^1.6.3",
     "react": "^0.13.3",
