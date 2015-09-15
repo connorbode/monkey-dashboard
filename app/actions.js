@@ -1,5 +1,5 @@
-var Cookies = require('cookies-js');
-var TIMERS_COOKIE = 'workhorse_timers';
+var Cookies       = require('cookies-js');
+var TIMERS_COOKIE = 'WORKHORSE_TIMERS';
 
 var actions = (dispatcher) => {
   return {
@@ -13,7 +13,7 @@ var actions = (dispatcher) => {
     // saves all of the timers
     saveTimers: (timers) => {
       Cookies.set(TIMERS_COOKIE, timers);
-      dispatcher.dispatch('TIMERS_SAVED');
+      dispatcher.dispatch('saveTimers');
     }
   };
 };

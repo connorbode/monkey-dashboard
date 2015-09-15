@@ -3,7 +3,7 @@ var dispatcher = new simflux.Dispatcher();
 var stores     = require('./stores');
 var actions    = require('./actions')(dispatcher);
 
-stores.forEach(dispatcher.registerStore);
+Object.keys(stores).forEach((key) => dispatcher.registerStore(stores[key]));
 dispatcher.registerActionCreator(actions);
 
 module.exports = dispatcher;
