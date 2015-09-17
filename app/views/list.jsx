@@ -1,5 +1,5 @@
 var React      = require('react/addons');
-var TimerStore = require('./stores/timer-store');
+var TimerStore = require('../stores/timer-store');
 
 var list = React.createClass({
   loadTimers: () => {
@@ -21,6 +21,7 @@ var list = React.createClass({
   render: () => {
     return (
       <div className="timer-list">
+        TIMERS
         <ul>
           {this.state.timers.map(timer => {
             return (
