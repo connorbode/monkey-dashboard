@@ -1,6 +1,6 @@
 var page      = require('page');
 var React     = require('react/addons');
-var app       = require('./app.jsx');
+var App       = require('./app.jsx');
 var container = document.getElementById('container');
 
 var render = (page) => {
@@ -8,7 +8,7 @@ var render = (page) => {
     page: page
   };
 
-  var element = React.createElement(app, props);
+  var element = React.createElement(App, props);
   React.render(element, container);
 };
 

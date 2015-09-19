@@ -1,7 +1,7 @@
 var React      = require('react/addons');
-var list       = require('./views/list.jsx');
-var edit       = require('./views/edit.jsx');
-var run        = require('./views/view.jsx');
+var List       = require('./views/list.jsx');
+var Edit       = require('./views/edit.jsx');
+var Run        = require('./views/view.jsx');
 var TimerStore = require('./stores/timer-store');
 
 var app = React.createClass({
@@ -29,7 +29,7 @@ var app = React.createClass({
 
   render: function () {
     var timers = this.props.timers || [];
-    timers.push('hi!');
+    timers.push({ name: 'hi!' });
 
     var listProps = {
       timers: timers
@@ -37,7 +37,7 @@ var app = React.createClass({
 
     return (
       <div>
-        <list {...listProps} />
+        <List {...listProps} />
       </div>
     )
   }
