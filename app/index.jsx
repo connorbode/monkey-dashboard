@@ -6,7 +6,13 @@ var run       = require('./views/view.jsx');
 var container = document.getElementById('container');
 
 var render = (component) => {
-  var element = React.createElement(component);
+  var props = {
+    timers: [
+      { name: 'test' },
+      { name: 'A new timer!' }
+    ]
+  };
+  var element = React.createElement(component, props);
   React.render(element, container);
 };
 
