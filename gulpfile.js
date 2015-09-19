@@ -16,7 +16,7 @@ gulp.task('watchify', function () {
   var bundler = browserify({
     debug:        true,
     transform:    [ reactify, babelify ],
-    entries:      [ './app/index.jsx' ],
+    entries:      [ './app/index.js' ],
     cache:        {},
     packageCache: {}
   });
@@ -30,13 +30,13 @@ gulp.task('watchify', function () {
         .on('error', function (err) {
           gutil.log(err);
         })
-        .pipe(source('./index.jsx'))
+        .pipe(source('./index.js'))
         .pipe(rename('app.js'))
         .pipe(gulp.dest('./dist/static/'));
       gutil.log('Finished app bundle compilation');
     })
     .bundle()
-    .pipe(source('./index.jsx'))
+    .pipe(source('./index.js'))
     .pipe(rename('app.js'))
     .pipe(gulp.dest('./dist/static/'));
 });

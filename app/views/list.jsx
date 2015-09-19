@@ -1,5 +1,4 @@
 var React      = require('react/addons');
-var TimerStore = require('../stores/timer-store');
 
 var list = React.createClass({
   render: function () {
