@@ -43,7 +43,7 @@ gulp.task('watchify', function () {
 
 gulp.task('sass', function () {
   return gulp.src('app/**/*.scss')
-    .pipe(concat('main.css'))
+    .pipe(concat('style.css'))
     .pipe(sass({ style: 'compressed' }).on('error', sass.logError))
     .pipe(minifyCss())
     .pipe(gulp.dest('./dist/static'));
