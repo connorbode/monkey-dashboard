@@ -1,5 +1,5 @@
 var React      = require('react/addons');
-var List       = require('./views/list.jsx');
+var Menu       = require('./views/menu.jsx');
 var Edit       = require('./views/edit.jsx');
 var Run        = require('./views/view.jsx');
 var TimerStore = require('./stores/timer-store');
@@ -29,15 +29,14 @@ var app = React.createClass({
 
   render: function () {
     var timers = this.props.timers || [];
-    timers.push({ name: 'hi!' });
 
-    var listProps = {
+    var menuProps = {
       timers: timers
     };
 
     return (
       <div>
-        <List {...listProps} />
+        <Menu {...menuProps} />
       </div>
     )
   }
