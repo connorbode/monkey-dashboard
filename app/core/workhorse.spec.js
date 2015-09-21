@@ -34,7 +34,7 @@ describe('Workhorse', () => {
     set = new PhaseSet();
     set.add(phase1);
     set.add(phase2);
-    sequence = new PhaseSequence(set);
+    sequence = new PhaseSequence('test', set);
     sequence.add(phase1);
     sequence.add(phase2);
     sequence.add(phase1);
