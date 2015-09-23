@@ -1,17 +1,24 @@
 var React = require('react/addons');
 
 var run = React.createClass({
-  componentDidMount: () => {
+  componentDidMount: function () {
 
   },
 
-  componentWillUnmount: () => {
-    
+  componentWillUnmount: function () {
+
   },
 
-  render: () => {
+  render: function () {
+    var name = "You don't have any timers..";
+
+    if (this.props.timer)
+      name = this.props.timer.name;
+
     return (
-      <div></div>
+      <div className="view">{name}</div>
     );
   }
 });
+
+module.exports = run;

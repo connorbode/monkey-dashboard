@@ -1,20 +1,22 @@
 var React      = require('react/addons');
 var Menu       = require('./views/menu.jsx');
 var Edit       = require('./views/edit.jsx');
-var Run        = require('./views/view.jsx');
+var View       = require('./views/view.jsx');
 var TimerStore = require('./stores/timer-store');
 var FakeTimer  = require('./fake-timer');
 
 var app = React.createClass({
   getInitialState: function () {
     return {
-      timers: []
+      timers: TimerStore.timers,
+      timer: TimerStore.timer
     };
   },
 
   loadTimers: function () {
     var state = Object.assign(this.state, {
-      timers: TimerStore.timers
+      timers: TimerStore.timers,
+      timer: TimerStore.timer
     });
 
     this.setState(state);
@@ -29,7 +31,8 @@ var app = React.createClass({
   },
 
   render: function () {
-    var timers = this.props.timers || [];
+    var timers = this.state.timers || [];
+    var timer = this.state.timer;
     timers.push(FakeTimer);
     console.log(timers);
 
@@ -37,9 +40,14 @@ var app = React.createClass({
       timers: timers
     };
 
+    var viewProps = {
+      timer: timer
+    };
+
     return (
       <div>
         <Menu {...menuProps} />
+        <View {...viewProps} />
       </div>
     )
   }

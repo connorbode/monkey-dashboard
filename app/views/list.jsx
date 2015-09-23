@@ -1,6 +1,11 @@
 var React      = require('react/addons');
+var actions    = require('../actions');
 
 var list = React.createClass({
+  viewTimer: function (timer) {
+    actions.viewTimer(timer);
+  },
+
   render: function () {
     return (
       <div className="timer-list">
@@ -8,7 +13,7 @@ var list = React.createClass({
         <ul>
           {this.props.timers.map(timer => {
             return (
-              <li>{timer.name}</li>
+              <li><a onClick={this.viewTimer.bind(null, timer)}>{timer.name}</a></li>
             );
           })}
         </ul>
