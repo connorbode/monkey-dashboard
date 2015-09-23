@@ -17,7 +17,7 @@ var phase2 = new Phase({
 set.add(phase1);
 set.add(phase2);
 
-var sequence = new Sequence(set);
+var sequence = new Sequence('test sequence', set);
 sequence.add(phase1);
 sequence.add(phase2);
 
