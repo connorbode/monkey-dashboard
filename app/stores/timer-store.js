@@ -1,11 +1,12 @@
 var EventEmitter = require('events').EventEmitter;
 var dispatcher = require('../dispatcher');
+var FakeTimer  = require('../fake-timer');
 
 var TimerStore = Object.assign(EventEmitter.prototype, {
   events: {
     CHANGED: 'CHANGED'
   },
-  timers: [],
+  timers: [ FakeTimer ],
   timer: undefined,
   loadTimers: (payload) => {
     this.timers = payload.timers;

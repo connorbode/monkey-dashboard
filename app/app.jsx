@@ -3,7 +3,6 @@ var Menu       = require('./views/menu.jsx');
 var Edit       = require('./views/edit.jsx');
 var View       = require('./views/view.jsx');
 var TimerStore = require('./stores/timer-store');
-var FakeTimer  = require('./fake-timer');
 
 var app = React.createClass({
   getInitialState: function () {
@@ -31,10 +30,8 @@ var app = React.createClass({
   },
 
   render: function () {
-    var timers = this.state.timers || [];
+    var timers = this.state.timers;
     var timer = this.state.timer;
-    timers.push(FakeTimer);
-    console.log(timers);
 
     var menuProps = {
       timers: timers
