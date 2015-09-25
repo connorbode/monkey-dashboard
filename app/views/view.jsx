@@ -1,4 +1,5 @@
 var React = require('react/addons');
+var Timer = require('./timer.jsx');
 
 var run = React.createClass({
   componentDidMount: function () {
@@ -16,7 +17,10 @@ var run = React.createClass({
       name = this.props.timer.name;
 
     return (
-      <div className="view">{name}</div>
+      <div className="view">
+        <h2>{name}</h2>
+        <Timer />
+      </div>
     );
   }
 });
