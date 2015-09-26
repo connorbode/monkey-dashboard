@@ -4,10 +4,14 @@ var Timer = React.createClass({
   render: function () {
     return (
       <svg className="timer">
-        <path d="M 100 100 a 50 50 0 1 0 0.00001 0" />
+        <path
+          d="M 100 50 A 50 50, 0, 1, 0, 50 100" 
+          fill="transparent"
+          stroke="black"
+          stroke-width="1" />
       </svg>
     );
   }
 });
 
-module.exports = Timer;
+module.exports = Timer
