@@ -47,6 +47,7 @@
     "page": "^1.6.3",
     "react": "^0.13.3",
     "require-dir": "^0.3.0",
-    "simflux": "0.0.7"
+    "simflux": "0.0.7",
+    "two-dee": "git://github.com/connorbode/two-dee.git"
   }
 }
