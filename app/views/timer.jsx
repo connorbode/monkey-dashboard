@@ -1,4 +1,7 @@
 var React = require('react/addons');
+var TwoDee = require('two-dee');
+var Point = TwoDee.Point;
+var Circle = TwoDee.Circle;
 
 var Timer = React.createClass({
   getInitialState: function () {
@@ -8,6 +11,8 @@ var Timer = React.createClass({
   },
 
   render: function () {
+    var radius = 50;
+
     return (
       <svg className="timer">
         <path
