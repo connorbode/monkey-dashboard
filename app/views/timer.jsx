@@ -16,10 +16,10 @@ var Timer = React.createClass({
     return (
       <svg className="timer">
         <path
-          d="M 100 50 A 50 50, 0, 1, 0, 100 49 Z"
+          d="M 230 230 A 45 45, 0, 1, 1, 275 275 "
           fill="transparent"
           stroke="black"
-          stroke-width="1" />
+          strokeWidth="1" />
       </svg>
     );
   }
